@@ -1,18 +1,21 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Subfix;
 
 static class Program
 {
     static void Main(string[] args)
     {
         var settings = Settings.Parse(args);
-        settings.Validate();
+        using var logger = new Logger(settings.LogFile);
+        settings.Validate(logger);
 
         if (!Directory.Exists(settings.Directory))
         {
-            throw new DirectoryNotFoundException($"'{settings.Directory}' directory not found");
+            string message = $"'{settings.Directory}' directory not found";
+            logger.WriteError(message);
+            throw new DirectoryNotFoundException(message);
         }
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -25,7 +28,7 @@ static class Program
 
         if (paths.Length == 0)
         {
-            Console.WriteLine("Nothing to process");
+            logger.Write("Nothing to process");
             return;
         }
 
@@ -42,10 +45,13 @@ static class Program
             }
 
             File.WriteAllText(path, content, targetEncoding);
-            Console.WriteLine($"'{path}' saved");
+            if (!settings.Silent)
+            {
+                logger.Write($"'{path}' saved");
+            }
         });
-
-        Console.WriteLine($"All files re-encoded from '{sourceEncoding.EncodingName}' to '{targetEncoding.EncodingName}'\nTask finished successfully");
+        
+        logger.Write($"All files re-encoded from '{sourceEncoding.EncodingName}' to '{targetEncoding.EncodingName}'");
         return;
 
         Encoding GetEncoding(string arg)

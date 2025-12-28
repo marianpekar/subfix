@@ -14,5 +14,7 @@ This commands cause the original files to be overwritten. To prevent that, you c
 
 All parameters have long (--) and short (-) variants. See the attributes in the [Settings](https://github.com/marianpekar/subfix/blob/master/Settings.cs) class.
 
-To specify source and target encodings (-s and -t parameters), you can use either a name such as utf-32 or windows-1250, or a codepage such as 1200 or 1250. See
+To specify source and target encodings (`-s` or `--sourceEncoding`, and `-t` or `--targetEncoding` parameters), you can use either a name such as `utf-32` or `windows-1250`, or a codepage such as `1200` or `1250`. See
 https://learn.microsoft.com/en-us/dotnet/api/system.text.encoding.getencoding?view=net-9.0
+
+Logging can be redirected from standard output to a file using `-l` or `--logfile` followed by a path. Printing of lines that inform the user after each processed file has been saved can be disabled using `-i` or `--silent`.

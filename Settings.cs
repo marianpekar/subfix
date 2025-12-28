@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Subfix;
 
 public class Settings
 {
@@ -31,6 +32,12 @@ public class Settings
 
     [Settings("f", "postfix")] 
     public string Postfix { get; set; }
+
+    [Settings("i", "silent")]
+    public bool Silent { get; set; } = false;
+
+    [Settings("l", "logfile")]
+    public string LogFile { get; set; }
 
     public static Settings Parse(string[] args)
     {
@@ -85,7 +92,7 @@ public class Settings
         return settings;
     }
 
-    public void Validate()
+    public void Validate(Logger logger)
     {
         var properties = typeof(Settings)
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -95,7 +102,7 @@ public class Settings
         
         foreach (var prop in properties)
         {
-            Console.Error.WriteLine($"{prop.Property.Name} is not set (pass a value with --{prop.Attribute.LongName} or -{prop.Attribute.ShortName})");
+            logger.WriteError($"{prop.Property.Name} is not set (pass a value with --{prop.Attribute.LongName} or -{prop.Attribute.ShortName})");
         }
 
         if (properties.Length > 0)
