@@ -12,7 +12,7 @@ This commands cause the original files to be overwritten. To prevent that, you c
 -d [path to a directory] -p *.srt -s Windows-1250 -t UTF-8 -r -e [some prefix] -f [some postfix]
 ```
 
-All parameters have long (--) and short (-) variants. See the attributes in the `Settings` class.
+All parameters have long (--) and short (-) variants. See the attributes in the [Settings](https://github.com/marianpekar/subfix/blob/master/Settings.cs) class.
 
 To specify source and target encodings (-s and -t parameters), you can use either a name such as utf-32 or windows-1250, or a codepage such as 1200 or 1250. See
 https://learn.microsoft.com/en-us/dotnet/api/system.text.encoding.getencoding?view=net-9.0
