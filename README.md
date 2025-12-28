@@ -3,13 +3,13 @@
 A simple command line tool I implemented when I needed to re-encode a large number of old subtitles from Windows-1250 to UTF-8:
 
 ```txt
--d <path to a directory> -p *.srt -s Windows-1250 -t UTF-8 --recursive
+-d [path to a directory] -p *.srt -s Windows-1250 -t UTF-8 --recursive
 ```
 
 This commands cause the original files to be overwritten. To prevent that, you can add a prefix, postfix, or both:
 
 ```txt
--d <path to a directory> -p *.srt -s Windows-1250 -t UTF-8 --recursive -e <some prefix> -f <some postfix>
+-d [path to a directory] -p *.srt -s Windows-1250 -t UTF-8 -r -e [some prefix] -f [some postfix]
 ```
 
 All parameters have long (--) and short (-) variants. See the attributes in the `Settings` class.
